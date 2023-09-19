@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import BgLeft from "../../Component/BgLeft/BgLeft";
 import "./app.css";
 import Form from "../../Component/Form/Form";
@@ -11,6 +11,7 @@ const Login = () => {
     email_address: "",
     password: ""
   });
+  const navigate = useNavigate()
 
   const [isError, setIsError] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState("")
@@ -31,7 +32,16 @@ const Login = () => {
       password: data.password
     };
 
-    axios.post(`${process.env.REACT_APP_BACKEND_URL}/login`, userData)
+    axios
+      .post(`${process.env.REACT_APP_BACKEND_URL}/login`, userData)
+      .then((response) => {
+        console.log(response);
+        localStorage.setItem(
+          "token",
+          JSON.stringify(response.data.generateToken)
+        );
+        return navigate("/");
+      })
       .then((response) => {
         console.log(response);
       })

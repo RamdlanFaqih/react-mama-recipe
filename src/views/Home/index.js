@@ -1,5 +1,6 @@
 import React from "react";
-import Navigation from "../../Component/Navigation/Navigation";
+import { useNavigate } from "react-router-dom"
+import Navigation from "../../Component/Navigation/Nav2";
 import Footer from "../../Component/Footer/Footer";
 import Button from "../../Component/Button/Button";
 import style from "./style.module.css";
@@ -12,7 +13,13 @@ import ImgGrid4 from "../../assets/img/grid2-1.svg"
 import ImgGrid5 from "../../assets/img/grid2-2.svg"
 import ImgGrid6 from "../../assets/img/grid2-3.svg"
 
+
 const Home = () => {
+  const navigate = useNavigate();
+  function logOut() {
+    localStorage.clear();
+    return navigate("/login");
+  }
   return (
     <React.Fragment>
       <Navigation />

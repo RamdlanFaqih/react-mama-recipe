@@ -1,11 +1,31 @@
 import React from "react";
-import Navigation from "../../Component/Navigation/Navigation";
+import axios from "axios";
+import Navigation from "../../Component/Navigation/Nav1";
 import Footer from "../../Component/Footer/Footer";
 import Button from "../../Component/Button/Button";
 import style from "./profile.module.css";
 import DisplayPicture from "../../assets/img/dp1.svg";
+import { data } from "jquery";
 
 const Profile = () => {
+  const [user, setUser] = React.useState({ name: "", image: "" });
+
+  React.useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        // ganti URL dengan endpoint API Anda
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/users`);
+
+        // asumsikan response.data mengandung data pengguna
+        setUser(response.data.message);
+      } catch (error) {
+        console.error("Failed to fetch user:", error);
+      }
+    };
+
+    fetchUser();
+  }, []);
+
   return (
     <div>
       <Navigation />
@@ -13,10 +33,10 @@ const Profile = () => {
         <div className="row align-items-center">
           <div className="col-12 text-center" id="display-picture">
             <img src={DisplayPicture} className="img-fluid" alt="" />
-            <h1>Garneta Sharina</h1>
+            <h1>Ramdlan Faqih </h1>
           </div>
           <div className="col-12 text-center">
-            <div class="accordion accordion-flush" id="accordionFlushExample">
+            <div className="accordion accordion-flush" id="accordionFlushExample">
               <div className="accordion-item">
                 <h2 className="accordion-header">
                   <button
